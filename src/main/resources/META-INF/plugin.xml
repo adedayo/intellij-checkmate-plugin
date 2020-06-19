@@ -10,6 +10,11 @@
     ]]>
     </description>
     <change-notes><![CDATA[
+      Version 0.1.7<br>
+      <ul>
+          <li>Fix: Removed global inspection
+          </li>
+       </ul>
       Version 0.1.6<br>
       <ul>
           <li>Rearchitecture: Now based on the more advanced CheckMate tool https://github.com/adedayo/checkmate
