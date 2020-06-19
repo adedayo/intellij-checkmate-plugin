@@ -1,0 +1,106 @@
+<idea-plugin>
+    <id>com.github.adedayo.intellij.checkmate-plugin</id>
+    <name>CheckMate Security Analysis</name>
+    <vendor email="dayo.dev@gmail.com" url="https://github.com/adedayo">Dr. Adedayo Adetoye</vendor>
+
+    <description><![CDATA[
+      A Security Analysis Plugin for the IntelliJ IDE. It distills several years of code security reviews
+      and penetration assessments into a tool that can help you find flaws in your codebase much more quickly
+      so you can fix them early in your software development lifecycle.
+    ]]>
+    </description>
+    <change-notes><![CDATA[
+      Version 0.1.6<br>
+      <ul>
+          <li>Rearchitecture: Now based on the more advanced CheckMate tool https://github.com/adedayo/checkmate
+          </li>
+       </ul>
+      Version 0.1.5<br>
+      <ul>
+          <li>Improvement: Added support for PDF issues report generation
+          </li>
+       </ul>
+     Version 0.1.4<br>
+      <ul>
+          <li>Improvement: Added a feature to indicate a code secret is known, and scheduled for removal
+          </li>
+       </ul>
+      Version 0.1.3<br>
+      <ul>
+          <li>Improvement: Reduced memory footprint by 99.35%
+          </li>
+          <li>Improvement: Support for whitelisting mechanism that works in IntelliJ and other "headless" environments
+          such as Jenkins
+          </li>
+       </ul>
+      Version 0.1.2<br>
+      <ul>
+          <li>Bug fix: Fixed an issue preventing plugin configuration serialisation on IntelliJ versions less than 16.
+          </li>
+       </ul>
+      Version 0.1.1<br>
+      <ul>
+          <li>Bug fix: NPE in the Dangerous Files Icon provider
+          </li>
+          <li>Recalibrated the confidence rating in unbroken string secret detection to now require at least a special
+          character (in addition to uppercase, lowercase, digit and minimum 8 characters) before being classified as "Medium".
+          Without a special character it is rated "Low" and ignored.
+          </li>
+       </ul>
+      First Release (Version 0.1.0).<br>
+      <ul>
+          <li>Find potentially sensitive files (such as private SSH keys, certificates, key
+                stores etc.) embedded in source code
+          </li>
+          <li>Find secrets in source code (like cryptographic keys, passwords, salts
+                etc.) that should not be hard-coded into source code or otherwise placed in
+                clear text in files that may be distributed with source code or on source code management
+                systems
+          </li>
+       </ul>
+    ]]>
+    </change-notes>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+
+    <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+         on how to target different products -->
+    <depends>com.intellij.modules.lang</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+        <localInspection enabledByDefault="true"
+                         shortName="FindSecretsInspectionLocal"
+                         id="com.github.adedayo.intellij.secrets.FindSecretsInspectionLocal"
+                         implementationClass="com.github.adedayo.intellij.secrets.FindSecretsInspectionLocal"
+                         groupName="Security checks" hasStaticDescription="true"
+                         runForWholeFile="true" displayName="Find secrets in code"/>
+<!--        <globalInspection enabledByDefault="false"-->
+<!--                          shortName="FindSecretsInspectionGlobal"-->
+<!--                          id="com.github.adedayo.intellij.secrets.FindSecretsInspectionGlobal"-->
+<!--                          implementationClass="com.github.adedayo.intellij.secrets.FindSecretsInspectionGlobal"-->
+<!--                          groupName="Security checks" hasStaticDescription="true"-->
+<!--                          displayName="Find secrets in code" />-->
+
+        <fileType implementationClass="com.github.adedayo.intellij.secrets.DangerousFileTypeFactory"
+                  order="FIRST" name="Security-sensitive files"/>
+        <iconProvider implementation="com.github.adedayo.intellij.secrets.DangerousFileIconProvider"
+                      order="LAST"/>
+        <treeStructureProvider implementation="com.github.adedayo.intellij.secrets.PluginTreeStructureProvider"/>
+    </extensions>
+
+    <actions>
+        <group id="com.github.adedayo.intellij.checkmate" text="CheckMate Security" popup="true">
+            <add-to-group group-id="InspectCodeGroup" anchor="first"/>
+        </group>
+        <!-- Add your actions here -->
+        <action id="com.github.adedayo.intellij.checkmate.secrets"
+                class="com.github.adedayo.intellij.secrets.FindSecretsAction"
+                text="Find _Secrets"
+                description="Find passwords, encryption keys, etc. in project files">
+            <add-to-group group-id="com.github.adedayo.intellij.checkmate" anchor="last"/>
+        </action>
+    </actions>
+</idea-plugin>
