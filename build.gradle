@@ -5,7 +5,7 @@ plugins {
 }
 
 group 'com.github.adedayo.intellij'
-version '0.1.6-SNAPSHOT'
+version '0.1.7-SNAPSHOT'
 
 java {
     targetCompatibility = JavaVersion.VERSION_1_8
