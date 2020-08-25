@@ -10,6 +10,11 @@
     ]]>
     </description>
     <change-notes><![CDATA[
+       Version 0.1.8<br>
+      <ul>
+          <li>Fix: Graceful failure under unsupported OS and if checkmate binary not found.
+          </li>
+       </ul>
       Version 0.1.7<br>
       <ul>
           <li>Fix: Removed global inspection

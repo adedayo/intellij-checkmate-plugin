@@ -31,9 +31,8 @@ object CheckMateRunner {
 
   loadSensitiveFiles()
 
-  //  lazy val sensitiveFiles = loadSensitiveFiles()
-
   def run(paths: List[String] = List.empty, exclusionPath: String = ""): Array[SecurityDiagnostic] = {
+    if(checkmate.contains("unsupported")) return Array.empty
     val wl = if (exclusionPath.nonEmpty) s"""--exclusion="$exclusionPath"""" else ""
     val codePaths = if (paths.nonEmpty) paths.mkString(" ") else "."
     val in = s"${checkmate} secretSearch --source --json $wl $codePaths" !!
@@ -80,7 +79,7 @@ object CheckMateRunner {
   }
 
   private def loadSensitiveFiles(): List[SensitiveFile] = {
-
+    if(checkmate.contains("unsupported")) return List.empty
     val in = s"${checkmate} secretSearch --sensitive-files" !!
 
     val files = mapper.readValue(in, classOf[Array[SensitiveFile]]).map(x => x.copy(description = s"Warning! You may be sharing confidential (${x.description}) data with your code"))
@@ -110,7 +109,7 @@ object CheckMateRunner {
       case os if os.contains("nux") => "linux"
       case _ => "unsupported"
     }
-    if (os == "unsupported") return cMate //unsupported platform - anything can happen!
+    if (os == "unsupported") return s"${cMate}_unsupported_${os}" //unsupported platform - fail gracefully!
 
     try {
       val jar = new JarFile(getCheckMateJarPath)
