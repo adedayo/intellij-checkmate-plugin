@@ -4,12 +4,16 @@
     <vendor email="dayo.dev@gmail.com" url="https://github.com/adedayo">Dr. Adedayo Adetoye</vendor>
 
     <description><![CDATA[
-      A Security Analysis Plugin for the IntelliJ IDE. It distills several years of code security reviews
-      and penetration assessments into a tool that can help you find flaws in your codebase much more quickly
-      so you can fix them early in your software development lifecycle.
+      A Security Analysis Plugin for the IntelliJ IDE. Find flaws in your codebase, such as hardcoded secrets
+      much more quickly so you could fix them early in your software development lifecycle.
     ]]>
     </description>
     <change-notes><![CDATA[
+       Version 0.1.9<br>
+      <ul>
+          <li>Improvement: Specify supported IDE ranges with explicit since and until build.
+          </li>
+       </ul>
        Version 0.1.8<br>
       <ul>
           <li>Fix: Graceful failure under unsupported OS and if checkmate binary not found.

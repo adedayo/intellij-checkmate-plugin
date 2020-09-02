@@ -4,17 +4,10 @@ CheckMate (https://github.com/adedayo/checkmate) is a static security analysis t
 contains code for the IntelliJ plugin wrapper that allows CheckMate to be used within IntelliJ IDEs.
 
 ## Installation
-The plugin will be published in the usual JetBrain IntelliJ plugin marketplace and can be installed
+The plugin is published in the JetBrain IntelliJ plugin marketplace and can be installed
 in the usual manner. 
 
-However it may also be installed from here 
-https://github.com/adedayo/intellij-checkmate-plugin/releases by downloading a version to your disk
-and within your IntelliJ IDE go to _Preferences → Plugins_ the click on the button "Install plugin from disk..."
- 
- 
- ![Plugin Install](docs/images/install-plugin.png)
- 
- and select the zip file you just downloaded. You may need to restart your IDE.
+![Plugin Install](docs/images/install.png)
  
  ## Usage
  
