@@ -9,6 +9,11 @@
     ]]>
     </description>
     <change-notes><![CDATA[
+       Version 0.1.10<br>
+      <ul>
+          <li>Fix: Find plugin jar in ProtectionDomain instead of PluginClassLoader
+          </li>
+       </ul>
        Version 0.1.9<br>
       <ul>
           <li>Improvement: Specify supported IDE ranges with explicit since and until build.
